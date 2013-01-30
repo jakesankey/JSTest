@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<script language='javascript' src='../JSTest.js'></script>
+	
+</head>
+<body>
+	
+	<div>
+		<textarea rows='7' type='text' id="codeInput">JSTest.assert(1,2)</textarea> <button id='execButton' onclick='runNewTest()'>Run Test</button>
+	</div>
+	
+	<br/>
+
+    <div id='tests'>UNIT TESTS:<br/><br/></div>
+
+<script>
+	function runNewTest()
+	{
+		location.href = "javascript:" + document.getElementById('codeInput').value;
+	}
+</script>
+</body>
+</html>
+
+
+
+<!-- Run Unit Tests -->
+<script>
+
+JSTest.showExecutionTime = true;
+JSTest.outputElement = document.getElementById("tests");
+JSTest.assert(1, 2-1);
+JSTest.assert(Math, Math);
+JSTest.assertFalse(1==2);
+JSTest.assertTrue(1==1);
+JSTest.assertNull(document.getElementById("fakeElement"));
+
+JSTest.testPool(
+		[
+			{
+				type:"assert",
+		  	 	goal:1,
+		  		test:2-1
+		 	},
+		 	{
+		 		type:"assert",
+		 		goal:Math,
+		 		test:Math
+		 	},
+		 	{
+		 		type:"false",
+		 		test:1==2
+		 	},
+		 	{
+		 		type:"true",
+		 		test:1==1
+		 	},
+		 	{
+		 		type:"null",
+		 		test:document.getElementById("fakeElement")
+		 	}
+		]
+	);	
+
+</script>
