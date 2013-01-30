@@ -7,11 +7,13 @@ You can test it out at http://jakesankey.com/projects/js/jstest/example
 
 Simply add your config and tests to the bottom of the HTML and run it.
 
-SYNTAX:
+<b>SYNTAX:</b>
+
 JSTest.assert(goal, test);
+
 JSTest.assertTrue(test);
 
-EXAMPLES OF AVAILABLE FUNCTIONS:
+<b>EXAMPLES OF AVAILABLE FUNCTIONS:</b>
 
     <script>
 
@@ -70,6 +72,6 @@ EXAMPLES OF AVAILABLE FUNCTIONS:
     </script>
 
 
-LICENSE:
+<b>LICENSE:</b>
 
 Do whatever you want with it :)
