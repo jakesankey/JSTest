@@ -14,12 +14,12 @@ JSTest.assert = function(goal, test)
 	
 	try
 	{
-        JSTest.numberOfTests++;
+        	JSTest.numberOfTests++;
         
-        if (test == goal) 
-        {
-            result = "SUCCESS";
-        }
+        	if (test == goal) 
+        	{
+            		result = "SUCCESS";
+        	}
 	}
 	catch (err)
 	{
