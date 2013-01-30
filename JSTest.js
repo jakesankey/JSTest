@@ -10,21 +10,21 @@ setInterval(function(){JSTest.startTime = new Date().getTime();}, 1);
 
 JSTest.assert = function(goal, test) 
 {
-	var result = "FAILED";
+    var result = "FAILED";
 	
-	try
-	{
-        	JSTest.numberOfTests++;
+    try
+    {
+       JSTest.numberOfTests++;
         
-        	if (test == goal) 
-        	{
-            		result = "SUCCESS";
-        	}
-	}
-	catch (err)
-	{
-		result = "FAILED";
-	}
+       if (test == goal) 
+       {
+          result = "SUCCESS";
+       }
+    }
+    catch (err)
+    {
+       result = "FAILED";
+    }
 	
     JSTest.write(result);
 };
@@ -36,17 +36,17 @@ JSTest.assertStrict = function(goal, test)
 
 JSTest.assertTrue = function(test) 
 {
-	JSTest.assert(test, true);
+    JSTest.assert(test, true);
 };
 
 JSTest.assertFalse = function(test) 
 {
-	JSTest.assert(test, false);
+    JSTest.assert(test, false);
 };
 
 JSTest.assertNull = function(test)
 {
-	JSTest.assert(test, null);
+    JSTest.assert(test, null);
 };
 
 JSTest.assertEqual = function(test1, test2)
