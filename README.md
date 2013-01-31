@@ -58,8 +58,8 @@ JSTest.assertTrue(test);
                 },
                 {
                   type:"strict",
-                  goal:5+5,
-                  test:10
+                  goal:10,
+                  test:8+2
                 },
                 {
                   type:"strictEqual",
