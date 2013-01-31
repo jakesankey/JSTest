@@ -71,6 +71,20 @@ JSTest.assertTrue(test);
 
     </script>
 
+<b>REAL WORLD EXAMPLE:</b>
+
+    function isDateTimeEven()
+    {
+        var dt = new Date().getTime();
+        if ((dt % 2) == 0)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    JSTest.assertTrue(isDateTimeEven());
+    // OR JSTest.assert(true, isDateTimeEven());
 
 <b>LICENSE:</b>
 
