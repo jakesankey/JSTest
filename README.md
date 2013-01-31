@@ -83,6 +83,7 @@ JSTest.assertTrue(test);
         return false;
     }
 
+    JSTest.outputElement = document.getElementById('testResults');
     JSTest.assertTrue(isDateTimeEven());
     // OR JSTest.assert(true, isDateTimeEven());
 
