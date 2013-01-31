@@ -9,9 +9,8 @@ Simply add your config and tests to the bottom of the HTML and run it.
 
 <b>SYNTAX:</b>
 
-JSTest.assert(goal, test);
-
-JSTest.assertTrue(test);
+    JSTest.assert(goal, test);
+    JSTest.assertTrue(test);
 
 <b>EXAMPLES OF AVAILABLE FUNCTIONS:</b>
 
