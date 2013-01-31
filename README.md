@@ -1,7 +1,7 @@
 JSTest - JS Unit Test Framework
 ===============================
 
-JSTest is a class designed for easily running unit tests on you JavaScript code. Instead of using some third-part test framework, I figured I'd just work on creating my own and JSTest is the result. The results of the tests will be displayed with execution time, success or failure, and the order number for the given test.
+JSTest is a class designed for easily running unit tests on your JavaScript code. Instead of using some third-part test framework, I figured I'd just work on creating my own and JSTest is the result. The results of the tests will be displayed with execution time, success or failure, and the order number for the given test.
 
 You can test it out at http://jakesankey.com/projects/js/jstest/example
 
