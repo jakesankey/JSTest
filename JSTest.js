@@ -65,33 +65,31 @@ JSTest.testPool = function(testArray)
     {
         var testObj = testArray[i];
 
-        if (testObj.type.toLowerCase() == "equal")
+        switch (testObj.type.toLowerCase())
         {
-            JSTest.assertEqual(testObj.goal, testObj.test);
-        }
-        else if (testObj.type.toLowerCase() == "strictequal")
-        {
-            JSTest.assertStrictEqual(testObj.goal, testObj.test);
-        }
-        else if (testObj.type.toLowerCase() == "null")
-        {
-            JSTest.assertNull(testObj.test);
-        }
-        else if (testObj.type.toLowerCase() == "false")
-        {
-            JSTest.assertFalse(testObj.test);
-        }
-        else if (testObj.type.toLowerCase() == "true")
-        {
-            JSTest.assertTrue(testObj.test);
-        }
-        else if (testObj.type.toLowerCase() == "strict")
-        {
-            JSTest.assertStrict(testObj.goal, testObj.test)
-        }
-        else if (testObj.type.toLowerCase() == "assert")
-        {
-            JSTest.assert(testObj.goal, testObj.test);
+ 	    case "equal":
+ 	        JSTest.assertEqual(testObj.goal, testObj.test);
+ 	        break;
+ 	    case "strictequal":
+                JSTest.assertStrictEqual(testObj.goal, testObj.test);
+ 	        break;
+ 	    case "null":
+ 	        JSTest.assertNull(testObj.test);
+ 	        break;
+ 	    case "false":
+ 	        JSTest.assertFalse(testObj.test);
+ 	        break;
+ 	    case "true":
+ 	        JSTest.assertTrue(testObj.test);
+ 	        break;
+ 	    case "strict":
+ 	        JSTest.assertStrict(testObj.goal, testObj.test);
+ 	        break;
+            case "assert":
+ 	        JSTest.assert(testObj.goal, testObj.test);
+ 	        break;
+ 	    default:
+ 	        break;
         }
     }
 };
