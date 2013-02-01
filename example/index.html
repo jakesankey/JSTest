@@ -8,7 +8,17 @@
 <body>
 	
 	<div>
-		<textarea rows='7' type='text' id="codeInput">JSTest.assert(1,2)</textarea> <button id='execButton' onclick='runNewTest()'>Run Test</button>
+		<textarea rows='7' type='text' id="codeInput">
+function isDateTimeEven()
+{
+  var dt = new Date().getTime();
+  if ((dt % 2) == 0)
+  {
+    return true;
+  }
+  return false;
+}	
+		</textarea> <button id='execButton' onclick='runNewTest()'>Run Test</button>
 	</div>
 	
 	<br/>
