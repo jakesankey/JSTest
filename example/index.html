@@ -8,7 +8,7 @@
 <body>
 	
 	<div>
-		<textarea rows='7' type='text' id="codeInput">
+		<textarea cols='45' rows='15' type='text' id="codeInput">
 function isDateTimeEven()
 {
   var dt = new Date().getTime();
@@ -18,6 +18,8 @@ function isDateTimeEven()
   }
   return false;
 }	
+
+JSTest.assertTrue(isDateTimeEven());
 		</textarea> <button id='execButton' onclick='runNewTest()'>Run Test</button>
 	</div>
 	
