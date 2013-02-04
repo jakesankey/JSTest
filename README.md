@@ -30,7 +30,7 @@ Simply add your config and tests to the bottom of the HTML and run it.
       JSTest.assertStrictEqual(1,1); // SUCCESS (using ===)
       JSTest.assertStrict("Test", "Test"); // SUCCESS (using ===)
 
-      // Test Pool - You can also run multiple tests with one function and some JSON
+      // Test Pool - You can also run multiple tests with one function and an array
       JSTest.testPool(
               [
                 {
