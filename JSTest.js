@@ -59,6 +59,16 @@ JSTest.assertStrictEqual = function(test1, test2)
     JSTest.assertTrue(test1===test2);
 };
 
+JSTest.assertNotEqual = function(test1, test2)
+{
+    JSTest.assertFalse(test1==test2);
+};
+
+JSTest.assertNotStrictEqual = function(test1, test2)
+{
+    JSTest.assertFalse(test1===test2);
+};
+
 JSTest.testPool = function(testArray)
 {
     for (var i = 0; i < testArray.length; i++)
@@ -87,6 +97,12 @@ JSTest.testPool = function(testArray)
  	        break;
             case "assert":
  	        JSTest.assert(testObj.goal, testObj.test);
+ 	        break;
+ 	    case "notequal":
+ 	        JSTest.assertNotEqual(testObj.goal, testObj.test);
+ 	        break;
+ 	    case "notstrictequal":
+ 	        JSTest.assertNotStrictEqual(testObj.goal, testObj.test);
  	        break;
  	    default:
  	        break;
