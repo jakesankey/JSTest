@@ -29,41 +29,58 @@ Simply add your config and tests to the bottom of the HTML and run it.
       JSTest.assertEqual(1,1); // SUCCESS (using ==)
       JSTest.assertStrictEqual(1,1); // SUCCESS (using ===)
       JSTest.assertStrict("Test", "Test"); // SUCCESS (using ===)
+      JSTest.assertNotEqual(10, 5+1); // SUCCESS (using ==)
+      JSTest.assertNotStrictEqual("10", 5+5) // Success (using ===)
 
       // Test Pool - You can also run multiple tests with one function and an array
       JSTest.testPool(
               [
                 {
-                  type:"assert",
-                  goal:1,
-                  test:2-1
+                  type: "assert",
+                  goal: 1,
+                  test: 2-1
                 },
                 {
-                  type:"assert",
-                  goal:Math,
-                  test:Math
+                  type: "assert",
+                  goal: Math,
+                  test: Math
                 },
                 {
-                  type:"false",
-                  test:1==2
+                  type: "false",
+                  test: 1==2
                 },
                 {
-                  type:"true",
-                  test:1==1
+                  type: "true",
+                  test: 1==1
                 },
                 {
-                  type:"null",
-                  test:document.getElementById("fakeElement")
+                  type: "null",
+                  test: document.getElementById("fakeElement")
                 },
                 {
-                  type:"strict",
-                  goal:10,
-                  test:8+2
+                  type: "strict",
+                  goal: 10,
+                  test: 8+2
                 },
                 {
-                  type:"strictEqual",
-                  goal:5+5,
-                  test:10
+                  type: "strictEqual",
+                  goal: 10,
+                  test: 5+5
+                },
+                {
+                  type: "equal",
+                  goal: "10",
+                  test: 5+5
+                },
+                {
+                  type: "notEqual",
+                  goal: 10,
+                  test: 5+1
+                },
+                {
+                  type: "notStrictEqual",
+                  goal: "10",
+                  test: 5+5
                 }
               ]
             );  
