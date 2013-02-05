@@ -7,101 +7,80 @@ You can test it out at http://jakesankey.com/projects/js/jstest/example
 
 Simply add your config and tests to the bottom of the HTML and run it.
 
-<b>SYNTAX:</b>
+<b>CONFIGURATION</b>
+  
+    // Show how long each test took in milliseconds
+	JSTest.showExecutionTime = true; 
+	// If output should be written to same page
+	JSTest.outputElement = document.getElementById('testResults'); 
+	// Defaults to true. Displays test results in a popup window.
+	JSTest.showOutputInPopup = true;
 
-    JSTest.assert(goal, test);
-    JSTest.assertTrue(test);
+<b>TEST OBJECT</b>
+(Types: true, false, assert, equal, strictEqual, null, notEqual, notStrictEqual)
 
-<b>EXAMPLES OF AVAILABLE FUNCTIONS:</b>
+	// Option 1
+	var test = {
+		         type:"true", 
+		         eval:1>0, 
+		         message:"1 is greater than 0" // optional
+               };
+	
+	// Option 2
+	var test = {};
+	test.type = "true";
+	test.eval:1>0;
+	test.message = "1 is greater than 0."; // optional
+  
 
-    <script>
+<b>SIMPLE TEST</b>
 
-      // Config
-      JSTest.showExecutionTime = true; // Output how long test took in milliseconds
-      JSTest.outputElement = document.getElementById('testResults'); // Required
+	JSTest.Assertions.test(
+			{
+				type:"true", 
+				eval:1>0, 
+				message:"1 is greater than 0"
+			});
 
-      // Basic Tests
-      JSTest.assert("myGoal", "myTest"); // FAILED
-      JSTest.assert(1, 1); // SUCCESS because 1 == 1
-      JSTest.assertTrue(20==15+5); // SUCCESS 15+5 == 20
-      JSTest.assertNull(document.getElementById('fakeElement')); // SUCCESS
-      JSTest.assertFalse(1==2); // SUCCESS 1 != 2
-      JSTest.assertEqual(1,1); // SUCCESS (using ==)
-      JSTest.assertStrictEqual(1,1); // SUCCESS (using ===)
-      JSTest.assertStrict("Test", "Test"); // SUCCESS (using ===)
-      JSTest.assertNotEqual(10, 5+1); // SUCCESS (using ==)
-      JSTest.assertNotStrictEqual("10", 5+5); // Success (using ===)
+<b>INSTANCE TESTS</b>
 
-      // Test Pool - You can also run multiple tests with one function and an array
-      JSTest.testPool(
-              [
-                {
-                  type: "assert",
-                  goal: 1,
-                  test: 2-1
-                },
-                {
-                  type: "assert",
-                  goal: Math,
-                  test: Math
-                },
-                {
-                  type: "false",
-                  test: 1==2
-                },
-                {
-                  type: "true",
-                  test: 1==1
-                },
-                {
-                  type: "null",
-                  test: document.getElementById("fakeElement")
-                },
-                {
-                  type: "strict",
-                  goal: 10,
-                  test: 8+2
-                },
-                {
-                  type: "strictEqual",
-                  goal: 10,
-                  test: 5+5
-                },
-                {
-                  type: "equal",
-                  goal: "10",
-                  test: 5+5
-                },
-                {
-                  type: "notEqual",
-                  goal: 10,
-                  test: 5+1
-                },
-                {
-                  type: "notStrictEqual",
-                  goal: "10",
-                  test: 5+5
-                }
-              ]
-            );  
-
-    </script>
+    var tests = new JSTest.Assertions();
+    // addTest accepts a single test object
+    tests.addTest({type:"true", eval:1>0, message:"1 is greater than 0"});
+    // addTests allows for an array of test objects
+    tests.addTests([{type:"false", eval:2<1, message:"2 is greater than 1"}, 
+	                {type:"true", eval:0<1, message:"0 is less than 1"}]);
+    tests.execute();
 
 <b>REAL WORLD EXAMPLE:</b>
 
     function isDateTimeEven()
-    {
-        var dt = new Date().getTime();
-        if ((dt % 2) == 0)
-        {
-            return true;
-        }
-        return false;
-    }
-
-    JSTest.outputElement = document.getElementById('testResults');
-    JSTest.assertTrue(isDateTimeEven());
-    // OR JSTest.assert(true, isDateTimeEven());
+	{
+	  var dt = new Date().getTime();
+	  if ((dt % 2) == 0)
+	  {
+	    return true;
+	  }
+	  return false;
+	}
+	
+    // Instance
+	var tests = new JSTest.Assert();
+	tests.addTest({
+	      type:"true", 
+	      eval: isDateTimeEven(), 
+	      message: "The datetime in ms is even."
+	   });
+	
+	tests.execute();
+    
+    // Static
+    JSTest.Assertions.test({
+          type:"true", 
+	      eval: isDateTimeEven(), 
+	      message: "The datetime in ms is even."
+	   });
+			
 
 <b>LICENSE:</b>
 
