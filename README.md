@@ -23,10 +23,10 @@ Simply add your config and tests to the bottom of the HTML and run it.
 
     // Option 1
     var test = {
-                  type:"true", 
-                  eval:1>0, 
-                  message:"1 is greater than 0" // optional
-               };
+              type:"true", 
+              eval:1>0, 
+              message:"1 is greater than 0" // optional
+    };
 	
     // Option 2
     var test = {};
