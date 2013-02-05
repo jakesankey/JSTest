@@ -88,12 +88,12 @@ JSTest.Assertions = function ()
 
         if (JSTest.outputElement != null)
         {
-            JSTest.write(result);
+            writeToScreen(result);
         }
 
         if (JSTest.showOutputInPopup)
         {
-            JSTest.writeResult(result);
+            writeToPopup(result);
         }
     };
 
@@ -173,13 +173,13 @@ JSTest.getResultsHTML = function (message)
     return html;
 }
 
-JSTest.write = function (message)
+function writeToScreen(message)
 {
     var html = JSTest.getResultsHTML(message);
     JSTest.outputElement.innerHTML += html;
 };
 
-JSTest.writeResult = function (message)
+function writeToPopup(message)
 {
     var html = "";
     if (resultWindow == null || resultWindow.closed)
