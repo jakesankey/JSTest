@@ -168,6 +168,8 @@ JSTest.getResultsHTML = function (message)
     {
         html += " (" + timeDiff + " ms)";
     }
+    
+    html += "</br>";
 
     return html;
 }
