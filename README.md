@@ -21,79 +21,81 @@ Simply add your config and tests to the bottom of the HTML and run it.
 <b>TEST OBJECT</b>
 (Types: true, false, assert, equal, strictEqual, null, notEqual, notStrictEqual)
 
-	// Option 1
-	var test = {
-		         type:"true", 
-		         eval:1>0, 
-		         message:"1 is greater than 0" // optional
+    // Option 1
+    var test = {
+                  type:"true", 
+                  eval:1>0, 
+                  message:"1 is greater than 0" // optional
                };
 	
-	// Option 2
-	var test = {};
-	test.type = "true";
-	test.eval:1>0;
-	test.message = "1 is greater than 0."; // optional
+    // Option 2
+    var test = {};
+    test.type = "true";
+    test.eval:1>0;
+    test.message = "1 is greater than 0."; // optional
   
 
 <b>SIMPLE TEST</b>
 
-	JSTest.Assertions.test(
-			{
-				type:"true", 
-				eval:1>0, 
-				message:"1 is greater than 0"
-			});
+    JSTest.Assertions.test({
+    	type:"true", 
+    	eval:1>0, 
+    	message:"1 is greater than 0"
+    });
 
 <b>INSTANCE TESTS</b>
 
     var tests = new JSTest.Assertions();
     
     // addTest accepts a single test object
-    tests.addTest({type:"true", eval:1>0, message:"1 is greater than 0"});
+    tests.addTest({
+    	type:"true", 
+    	eval:1>0, 
+    	message:"1 is greater than 0"
+    });
     
     // addTests allows for an array of test objects
-    tests.addTests([
-	{
-		type:"false", 
-		eval:2<1, 
-		message:"2 is greater than 1"
-	}, 
-	{
-		type:"true", 
-		eval:0<1, 
-		message:"0 is less than 1"
-	}]);
+    tests.addTests([{
+        type:"false", 
+        eval:2<1, 
+        message:"2 is greater than 1"
+    },{
+        type:"true", 
+        eval:0<1, 
+        message:"0 is less than 1"
+    }]);
 	
     tests.execute();
 
 <b>REAL WORLD EXAMPLE:</b>
 
     function isDateTimeEven()
-	{
-	  var dt = new Date().getTime();
-	  if ((dt % 2) == 0)
-	  {
-	    return true;
-	  }
-	  return false;
-	}
+    {
+    	var dt = new Date().getTime();
+    	if ((dt % 2) == 0)
+    	{
+    		return true;
+    	}
+    	
+    	return false;
+    }
 	
     // Instance
-	var tests = new JSTest.Assert();
-	tests.addTest({
-	      type:"true", 
-	      eval: isDateTimeEven(), 
-	      message: "The datetime in ms is even."
-	   });
+    var tests = new JSTest.Assert();
+    tests.addTest({
+    	type:"true", 
+    	eval: isDateTimeEven(), 
+    	message: "The datetime in ms is even."
+    });
 	
-	tests.execute();
+    tests.execute();
     
     // Static
     JSTest.Assertions.test({
           type:"true", 
-	      eval: isDateTimeEven(), 
-	      message: "The datetime in ms is even."
-	   });
+          eval: isDateTimeEven(), 
+          message: "The datetime in ms is even."
+    });
 			
 
 <b>LICENSE:</b>
