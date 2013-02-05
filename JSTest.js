@@ -161,14 +161,13 @@ JSTest.getResultsHTML = function (message)
     var currTime = new Date().getTime();
     var timeDiff = currTime - startTime;
 
-    var html = "<table border=1 style='padding=5;border-style:solid'><tr>";
-    html += "<td>Test #" + JSTest.Assertions.testsComplete + "</td>";
-    html += "<td><font color='" + color + "'>" + message + "</font></td>";
+    var html = "";
+    html += "Test #" + JSTest.Assertions.testsComplete + ": ";
+    html += "<font color='" + color + "'>" + message + "</font>";
     if (JSTest.showExecutionTime)
     {
-        html += "<td>(" + timeDiff + " ms)</td>";
+        html += " (" + timeDiff + " ms)";
     }
-    html += "</tr></table>";
 
     return html;
 }
