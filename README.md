@@ -8,11 +8,13 @@ You can test it out at http://jakesankey.com/projects/js/jstest/example
 Simply add your config and tests to the bottom of the HTML and run it.
 
 <b>CONFIGURATION</b>
-  
-    // Show how long each test took in milliseconds
+
+	// Show how long each test took in milliseconds
 	JSTest.showExecutionTime = true; 
+	
 	// If output should be written to same page
 	JSTest.outputElement = document.getElementById('testResults'); 
+	
 	// Defaults to true. Displays test results in a popup window.
 	JSTest.showOutputInPopup = true;
 
@@ -45,11 +47,23 @@ Simply add your config and tests to the bottom of the HTML and run it.
 <b>INSTANCE TESTS</b>
 
     var tests = new JSTest.Assertions();
+    
     // addTest accepts a single test object
     tests.addTest({type:"true", eval:1>0, message:"1 is greater than 0"});
+    
     // addTests allows for an array of test objects
-    tests.addTests([{type:"false", eval:2<1, message:"2 is greater than 1"}, 
-	                {type:"true", eval:0<1, message:"0 is less than 1"}]);
+    tests.addTests([
+	{
+		type:"false", 
+		eval:2<1, 
+		message:"2 is greater than 1"
+	}, 
+	{
+		type:"true", 
+		eval:0<1, 
+		message:"0 is less than 1"
+	}]);
+	
     tests.execute();
 
 <b>REAL WORLD EXAMPLE:</b>
