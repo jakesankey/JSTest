@@ -21,10 +21,10 @@ Simply add your config and tests to the bottom of the HTML and run it.
 
 	// Option 1
 	var test = {
-				type="true", 
-				eval:1>0, 
-				message:"1 is greater than 0" // optional
-			 };
+		         type:"true", 
+		         eval:1>0, 
+		         message:"1 is greater than 0" // optional
+               };
 	
 	// Option 2
 	var test = {};
@@ -37,7 +37,7 @@ Simply add your config and tests to the bottom of the HTML and run it.
 
 	JSTest.Assertions.test(
 			{
-				type="true", 
+				type:"true", 
 				eval:1>0, 
 				message:"1 is greater than 0"
 			});
@@ -46,10 +46,10 @@ Simply add your config and tests to the bottom of the HTML and run it.
 
     var tests = new JSTest.Assertions();
     // addTest accepts a single test object
-    tests.addTest({type="true", eval:1>0, message:"1 is greater than 0"});
+    tests.addTest({type:"true", eval:1>0, message:"1 is greater than 0"});
     // addTests allows for an array of test objects
-    tests.addTests([{type="false", eval:2<1, message:"2 is greater than 1"}, 
-	                {type="true", eval:0<1, message:"0 is less than 1"}]);
+    tests.addTests([{type:"false", eval:2<1, message:"2 is greater than 1"}, 
+	                {type:"true", eval:0<1, message:"0 is less than 1"}]);
     tests.execute();
 
 <b>REAL WORLD EXAMPLE:</b>
