@@ -6,10 +6,10 @@ JSTest.showOutputInPopup = true;
 var startTime = new Date().getTime();
 var resultWindow = null;
 
+setInterval(function () {startTime = new Date().getTime(); }, .1);
+
 JSTest.Assertions = function ()
 {
-    setInterval(function () { startTime = new Date().getTime(); }, .1);
-
     this.queue = [];
 
     this.addTest = function (testObj)
