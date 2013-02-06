@@ -18,8 +18,18 @@ Simply add your config and tests to the bottom of the HTML and run it.
 	// Defaults to true. Displays test results in a popup window.
 	JSTest.showOutputInPopup = true;
 
+<b>TEST TYPES</b>
+
+    "true" - (requires eval param) 
+    "false" - (requires eval param)
+    "assert" - (requires eval and goal params)
+    "equal" - (requires eval and goal params)
+    "strictEqual" - (requires eval and goal params)
+    "null" - (requires eval params)
+    "notEqual" - (requires eval and goal params)
+    "notStrictEqual" - (requires eval and goal params)
+
 <b>TEST OBJECT</b>
-(Types: true, false, assert, equal, strictEqual, null, notEqual, notStrictEqual)
 
     // Option 1
     var test = {
@@ -30,9 +40,10 @@ Simply add your config and tests to the bottom of the HTML and run it.
 	
     // Option 2
     var test = {};
-    test.type = "true";
-    test.eval:1>0;
-    test.message = "1 is greater than 0."; // optional
+    test.type = "assert";
+    test.goal = 10;
+    test.eval = 3+5+2;
+    test.message = "3+5+2 == goal of 10"; // optional
   
 
 <b>SIMPLE TEST</b>
