@@ -32,7 +32,8 @@ JSTest.Assertions = function ()
 
     this.isStrictEqual = function (testObj)
     {
-        this.isTrue(testObj.goal === testObj.eval);
+        testObj.eval = testObj.goal === testObj.eval;
+        this.isTrue(testObj);
     };
 
     this.isNull = function (testObj)
