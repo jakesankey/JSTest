@@ -56,12 +56,14 @@ JSTest.Assertions = function ()
 
     this.isNotEqual = function (testObj)
     {
-        this.isFalse(testObj.goal === testObj.eval);
+        testObj.eval = testObj.goal === testObj.eval;
+        this.isFalse(testObj);
     };
 
     this.isNotStrictEqual = function (testObj)
     {
-        this.isFalse(testObj.goal === testObj.eval);
+        testObj.eval = testObj.goal === testObj.eval;
+        this.isFalse(testObj);
     };
 
     this.assert = function (testObj)
