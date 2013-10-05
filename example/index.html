@@ -2,43 +2,40 @@
 <html>
 <head>
 
+<link rel="stylesheet" href="codemirror.css">
 <script type='text/javascript' src='../JSTest.js'></script>
+<script type='text/javascript' src='codemirror.js'></script>
+<script type='text/javascript' src='javascript.js'></script>
+
+<script>
+	var myCodeMirror;
+	function load() {
+		myCodeMirror = CodeMirror(document.body, {
+		  value: "function myScript() {\r\n\treturn 100;\r\n}\r\n\r\nvar testCases = new JSTest(\'Array of tests for myScript() with end summary.\');\r\n\r\ntestCases.add([\r\n\t{\r\n\t\ttype:\'equal\',\r\n\t\tgoal:100,\r\n\t\teval:myScript(),\r\n\t\tmessage:\'myScript() returns 100\'\r\n\t},\r\n\t{\r\n\t\ttype:\'false\',\r\n\t\teval:myScript() == 50,\r\n\t\tmessage:\'myScript() does not return 50\'\r\n\t},\r\n\t{\r\n\t\ttype:\'strictequal\',\r\n\t  \tgoal:100,\r\n\t\teval:myScript(),\r\n\t\tmessage:\'myScript() returns exactly 100\'\r\n\t},\r\n\t{\r\n\t\ttype:\'notstrictequal\',\r\n\t  \tgoal:\'100\',\r\n\t\teval:myScript(),\r\n\t\tmessage:\'myScript() returns exactly 100\'\r\n\t}\r\n]);\r\n\r\ntestCases.run();\r\n\r\n\r\nvar test = new JSTest(\'Demo of tests executed directly.\');\r\n\r\ntest.isEqual({\r\n\tgoal:\'100\',\r\n\teval:myScript(),\r\n\tmessage:\'myScript() returns 100\'\r\n});\r\n\r\ntest.isTrue({\r\n\teval:myScript() == 100,\r\n\tmessage:\'myScript() returns 100\'\r\n});",
+		  mode:  "javascript",
+		  lineNumbers: true,
+		  autofocus: true
+		});
+	}
+</script>
 	
+<style type="text/css">
+      .CodeMirror {border: 1px solid #cccccc;height:500px;}
+</style>
+
 </head>
-<body>
-	
-	<div>
-		<textarea cols='45' rows='20' type='text' id="codeInput">
-function isDateTimeEven()
-{
-  var dt = new Date().getTime();
-  if ((dt % 2) == 0)
-  {
-    return true;
-  }
-  return false;
-}
-
-var tests = new JSTest.Assertions();
-tests.addTest({
-      type: "true", 
-      eval: isDateTimeEven(), 
-      message: "The datetime in ms is even."
-   });
-
-tests.execute();
-		</textarea>
-		<button id='execButton' onclick='runNewTest()'>Run Test</button>
-	</div>
-	
+<body onload="load()">	
 	<br/>
-
-    <div id='tests'>Tests will be displayed in a new window.<br/><br/></div>
-
+	<div>Test results will show in the JavaScript console</div>
+	<br/>
+	<div>
+		<button id='execButton' onclick='runNewTest()'>Run Tests</button>
+	</div>
+	<br/>
 <script>
 	function runNewTest()
 	{
-		location.href = "javascript:" + document.getElementById('codeInput').value;
+		location.href = "javascript:" + myCodeMirror.getValue();
 	}
 </script>
 </body>

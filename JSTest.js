@@ -1,215 +1,138 @@
-var JSTest = window.JSTest || {};
-
-JSTest.outputElement = null;
-JSTest.showExecutionTime = true;
-JSTest.showOutputInPopup = true;
-var startTime = new Date().getTime();
-var resultWindow = null;
-
-setInterval(function () {startTime = new Date().getTime(); }, .1);
-
-JSTest.Assertions = function ()
-{
+var JSTest = function (feature) {
     this.queue = [];
+    this.testsComplete = 0;
+    this.failCount = 0;
+    this.writeSuccessToConsole("TESTING: " + feature);
+};
 
-    this.addTest = function (testObj)
-    {
-        this.queue.push(testObj);
-    };
+JSTest.prototype.add = function (testObjs) {
+    for (var i = 0; i < testObjs.length; i++) {
+        this.queue.push(testObjs[i]);
+    }
+};
 
-    this.addTests = function (testObjs)
-    {
-        for (var i = 0; i < testObjs.length; i++)
-        {
-            this.queue.push(testObjs[i]);
+JSTest.prototype.isEqual = function (testObj) {
+    this.assert(testObj);
+};
+
+JSTest.prototype.isStrictEqual = function (testObj) {
+    testObj.eval = testObj.goal === testObj.eval;
+    this.isTrue(testObj);
+};
+
+JSTest.prototype.isNull = function (testObj) {
+    testObj.goal = null;
+    this.assert(testObj);
+};
+
+JSTest.prototype.isFalse = function (testObj) {
+    testObj.goal = false;
+    this.assert(testObj);
+};
+
+JSTest.prototype.isTrue = function (testObj) {
+    testObj.goal = true;
+    this.assert(testObj);
+};
+
+JSTest.prototype.isNotEqual = function (testObj) {
+    testObj.eval = testObj.goal === testObj.eval;
+    this.isFalse(testObj);
+};
+
+JSTest.prototype.isNotStrictEqual = function (testObj) {
+    testObj.eval = testObj.goal === testObj.eval;
+    this.isFalse(testObj);
+};
+
+JSTest.prototype.assert = function (testObj) {
+    var result = "FAILED";
+    var success = false;
+    var exception = "";
+
+    try {
+        this.testsComplete++;
+
+        if (testObj.eval == testObj.goal) {
+            result = "PASSED";
+            success = true;
         }
-    };
+    }
+    catch (err) {
+        result = "FAILED";
+        exception = err;
+    }
 
-    this.isEqual = function (testObj)
-    {
-        this.assert(testObj);
-    };
+    if (testObj.message != null) {
+        result += " - " + testObj.message + "  " + exception;
+    }
 
-    this.isStrictEqual = function (testObj)
-    {
-        testObj.eval = testObj.goal === testObj.eval;
-        this.isTrue(testObj);
-    };
+    if (success) {
+        this.writeSuccessToConsole("Test #" + this.testsComplete + ": " + result);
+    } else {
+        this.failCount++;
+        this.writeFailureToConsole("Test #" + this.testsComplete + ": " + result);
+    }
+};
 
-    this.isNull = function (testObj)
-    {
-        testObj.goal = null;
-        this.assert(testObj);
-    };
+JSTest.prototype.run = function () {
+    this.testsComplete = 0;
+    this.failCount = 0;
+    this.clearConsole();
+    for (var i = 0; i < this.queue.length; i++) {
+        var testObj = this.queue[i];
 
-    this.isFalse = function (testObj)
-    {
-        testObj.goal = false;
-        this.assert(testObj);
-    };
+        switch (testObj.type.toLowerCase()) {
+            case "equal":
+                this.isEqual(testObj);
+                break;
+            case "strictequal":
+                this.isStrictEqual(testObj);
+                break;
+            case "null":
+                this.isNull(testObj);
+                break;
+            case "false":
+                this.isFalse(testObj);
+                break;
+            case "true":
+                this.isTrue(testObj);
+                break;
+            case "notequal":
+                this.isNotEqual(testObj);
+                break;
+            case "notstrictequal":
+                this.isNotStrictEqual(testObj);
+                break;
+            default:
+                break;
+        }
 
-    this.isTrue = function (testObj)
-    {
-        testObj.goal = true;
-        this.assert(testObj);
-    };
-
-    this.isNotEqual = function (testObj)
-    {
-        testObj.eval = testObj.goal === testObj.eval;
-        this.isFalse(testObj);
-    };
-
-    this.isNotStrictEqual = function (testObj)
-    {
-        testObj.eval = testObj.goal === testObj.eval;
-        this.isFalse(testObj);
-    };
-
-    this.assert = function (testObj)
-    {
-        var result = "FAILED";
-
-        try
-        {
-            JSTest.Assertions.testsComplete++;
-
-            if (testObj.eval == testObj.goal)
-            {
-                result = "PASSED";
+        if (this.queue.length > 1 && this.testsComplete == this.queue.length) {
+            var summary = this.testsComplete - this.failCount + " TESTS PASSED, " + this.failCount + " TESTS FAILED";
+            if (this.failCount > 0) {
+                this.writeFailureToConsole(summary);
+            } else {
+                this.writeSuccessToConsole(summary);
             }
         }
-        catch (err)
-        {
-            result = "FAILED";
-        }
-
-        if (testObj.message != null)
-        {
-            result += " - " + testObj.message;
-        }
-
-        if (JSTest.outputElement != null)
-        {
-            writeToScreen(result);
-        }
-
-        if (JSTest.showOutputInPopup)
-        {
-            writeToPopup(result);
-        }
-    };
-
-    this.execute = function ()
-    {
-        for (var i = 0; i < this.queue.length; i++)
-        {
-            var testObj = this.queue[i];
-
-            switch (testObj.type.toLowerCase())
-            {
-                case "equal":
-                    this.isEqual(testObj);
-                    break;
-                case "strictequal":
-                    this.isStrictEqual(testObj);
-                    break;
-                case "null":
-                    this.isNull(testObj);
-                    break;
-                case "false":
-                    this.isFalse(testObj);
-                    break;
-                case "true":
-                    this.isTrue(testObj);
-                    break;
-                case "assert":
-                    this.assert(testObj);
-                    break;
-                case "notequal":
-                    this.isNotEqual(testObj);
-                    break;
-                case "notstrictequal":
-                    this.isNotStrictEqual(testObj);
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
+    }
 };
 
-JSTest.Assertions.testsComplete = 0;
-
-JSTest.Assertions.test = function (newTest)
-{
-    var tTest = new JSTest.Assertions();
-    tTest.addTest(newTest);
-    tTest.execute();
+JSTest.prototype.writeFailureToConsole = function (message) {
+    if (console !== 'undefined') {
+        console.error(message);
+    }
 };
 
-JSTest.getResultsHTML = function (message)
-{
-    var color = "black";
-
-    if (message.indexOf("PASSED") != -1)
-    {
-        color = "#00b208";
+JSTest.prototype.writeSuccessToConsole = function (message) {
+    if (console !== 'undefined') {
+        console.log(message);
     }
-    else if (message.indexOf("FAILED") != -1)
-    {
-        color = "red";
-    }
-
-    var currTime = new Date().getTime();
-    var timeDiff = currTime - startTime;
-
-    var html = "";
-    html += "Test #" + JSTest.Assertions.testsComplete + ": ";
-    html += "<font color='" + color + "'>" + message + "</font>";
-    if (JSTest.showExecutionTime)
-    {
-        html += " (" + timeDiff + " ms)";
-    }
-    
-    html += "</br>";
-
-    return html;
-}
-
-function writeToScreen(message)
-{
-    var html = JSTest.getResultsHTML(message);
-    JSTest.outputElement.innerHTML += html;
 };
 
-function writeToPopup(message)
-{
-    var html = "";
-    if (resultWindow == null || resultWindow.closed)
-    {
-        var x = screen.width / 2 - 700 / 2;
-        var y = screen.height / 2 - 450 / 2;
-        resultWindow = window.open(null, null, "height=400,width=500,left=" + x + ",top=" + y + ",menubar=no,status=no,toolbar=no");
-        resultWindow.document.title = "JSTest Results";
-        html += "<b>JSTest Results:</b></br></br>";
+JSTest.prototype.clearConsole = function () {
+    if (console !== 'undefined') {
+        // console.clear();
     }
-
-    html += JSTest.getResultsHTML(message);
-    resultWindow.document.body.innerHTML += html;
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

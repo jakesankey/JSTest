@@ -1,22 +1,10 @@
 JSTest - JS Unit Test Framework
 ===============================
 
-JSTest is a class designed for easily running unit tests on your JavaScript code. Instead of using some third-party test framework, I figured I'd just work on creating my own and JSTest is the result. The results of the tests will be displayed with execution time, success or failure, and the order number for the given test. No other frameworks needed for JSTest to function.
+JSTest is a class designed for easily running unit tests on your JavaScript code. The results of the tests will be displayed in the console with a summary of successes and failures. In the latest version, you now include a feature name as a constructor argument and the output will be categorized by this name. 
+No other frameworks needed for JSTest to function.
 
 You can test it out <a href="http://htmlpreview.github.com/?https://github.com/jakesankey/JSTest/blob/master/example/index.html" target="_blank">here</a>.
-
-Simply add your config and tests to the bottom of the HTML and run it.
-
-<b>CONFIGURATION</b>
-
-	// Show how long each test took in milliseconds
-	JSTest.showExecutionTime = true; 
-	
-	// If output should be written to same page
-	JSTest.outputElement = document.getElementById('testResults'); 
-	
-	// Defaults to true. Displays test results in a popup window.
-	JSTest.showOutputInPopup = true;
 
 <b>TEST TYPES</b>
 
@@ -29,82 +17,36 @@ Simply add your config and tests to the bottom of the HTML and run it.
     "notEqual" - (requires eval and goal params)
     "notStrictEqual" - (requires eval and goal params)
 
-<b>TEST OBJECT</b>
+<b>QUICK TESTS</b>
 
-    // Option 1
-    var test = {
-              type:"true", 
-              eval:1>0, 
-              message:"1 is greater than 0" // optional
-    };
-	
-    // Option 2
-    var test = {};
-    test.type = "assert";
-    test.goal = 10;
-    test.eval = 3+5+2;
-    test.message = "3+5+2 == goal of 10"; // optional
-  
+    var test = new JSTest("My fancy new feature.");
 
-<b>SIMPLE TEST</b>
+    test.isEqual(
+        {
+            type:"true",
+            eval:50+50 == 100,
+            message::"Yep, 50 + 50 is still 100"
+        }
+    );
 
-    JSTest.Assertions.test({
-    	type:"true", 
-    	eval:1>0, 
-    	message:"1 is greater than 0"
-    });
+<b>ARRAY OF TESTS</b>
 
-<b>INSTANCE TESTS</b>
+    var tests = new JSTest('My great new feature.');
 
-    var tests = new JSTest.Assertions();
-    
-    // addTest accepts a single test object
-    tests.addTest({
-    	type:"true", 
-    	eval:1>0, 
-    	message:"1 is greater than 0"
-    });
-    
-    // addTests allows for an array of test objects
-    tests.addTests([{
-        type:"false", 
-        eval:2<1, 
-        message:"2 is greater than 1"
-    },{
-        type:"true", 
-        eval:0<1, 
-        message:"0 is less than 1"
-    }]);
-	
-    tests.execute();
+    tests.add([
+        {
+            type:"equal"
+            goal:100,
+            eval:50+50,
+            message:"Yes, 50 + 50 = 100"
+        },
+        {
+            type:"notequal"
+            goal:100,
+            eval:50+40,
+            message:"No, 50 + 40 != 100"
+        }    
+    ]);
 
-<b>REAL WORLD EXAMPLE:</b>
-
-    function isDateTimeEven()
-    {
-    	var dt = new Date().getTime();
-    	if ((dt % 2) == 0)
-    	{
-    		return true;
-    	}
-    	
-    	return false;
-    }
-	
-    // Instance
-    var tests = new JSTest.Assert();
-    tests.addTest({
-    	type:"true", 
-    	eval: isDateTimeEven(), 
-    	message: "The datetime in ms is even."
-    });
-	
-    tests.execute();
-    
-    // Static
-    JSTest.Assertions.test({
-          type:"true", 
-          eval: isDateTimeEven(), 
-          message: "The datetime in ms is even."
-    });
+    tests.run();
 
