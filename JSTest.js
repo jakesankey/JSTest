@@ -78,7 +78,6 @@ JSTest.prototype.assert = function (testObj) {
 JSTest.prototype.run = function () {
     this.testsComplete = 0;
     this.failCount = 0;
-    this.clearConsole();
     for (var i = 0; i < this.queue.length; i++) {
         var testObj = this.queue[i];
 
@@ -128,11 +127,5 @@ JSTest.prototype.writeFailureToConsole = function (message) {
 JSTest.prototype.writeSuccessToConsole = function (message) {
     if (console !== 'undefined') {
         console.log(message);
-    }
-};
-
-JSTest.prototype.clearConsole = function () {
-    if (console !== 'undefined') {
-        // console.clear();
     }
 };
