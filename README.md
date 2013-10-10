@@ -10,7 +10,6 @@ You can test it out <a href="http://htmlpreview.github.com/?https://github.com/j
 
     "true" - (requires eval param) 
     "false" - (requires eval param)
-    "assert" - (requires eval and goal params)
     "equal" - (requires eval and goal params)
     "strictEqual" - (requires eval and goal params)
     "null" - (requires eval params)
