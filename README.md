@@ -23,7 +23,6 @@ You can test it out <a href="http://htmlpreview.github.com/?https://github.com/j
 
     test.isEqual(
         {
-            type:"true",
             eval:50+50 == 100,
             message::"Yep, 50 + 50 is still 100"
         }
