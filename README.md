@@ -17,34 +17,34 @@ You can test it out <a href="http://htmlpreview.github.com/?https://github.com/j
     "notStrictEqual" - (requires eval and goal params)
 
 <b>QUICK TESTS</b>
+```javascript
+var test = new JSTest("My fancy new feature.");
 
-    var test = new JSTest("My fancy new feature.");
-
-    test.isEqual(
-        {
-            eval:50+50 == 100,
-            message::"Yep, 50 + 50 is still 100"
-        }
-    );
-
+test.isEqual(
+    {
+        eval:50+50 == 100,
+        message::"Yep, 50 + 50 is still 100"
+    }
+);
+```
 <b>ARRAY OF TESTS</b>
+```javascript
+var tests = new JSTest('My great new feature.');
 
-    var tests = new JSTest('My great new feature.');
+tests.add([
+    {
+        type:"equal"
+        goal:100,
+        eval:50+50,
+        message:"Yes, 50 + 50 = 100"
+    },
+    {
+        type:"notequal"
+        goal:100,
+        eval:50+40,
+        message:"No, 50 + 40 != 100"
+    }    
+]);
 
-    tests.add([
-        {
-            type:"equal"
-            goal:100,
-            eval:50+50,
-            message:"Yes, 50 + 50 = 100"
-        },
-        {
-            type:"notequal"
-            goal:100,
-            eval:50+40,
-            message:"No, 50 + 40 != 100"
-        }    
-    ]);
-
-    tests.run();
-
+tests.run();
+```
