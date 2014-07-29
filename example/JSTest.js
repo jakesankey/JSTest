@@ -85,7 +85,7 @@
   }
 
   if (window.jst == null) {
-    window.jst = JSTest;
+    window.jst = new JSTest();
   }
 
 }).call(this);
