@@ -9,43 +9,43 @@ Test results will be displayed in the browser's console.
 
 ### QUICK TESTS
 
-    ```js
-        jst.expect(2+2).is(4)
-        jst.expect(3+3).not(5)
-        jst.expect(["foo", "bar", "baz"]).has("foo")
-        jst.expect(window.foo).exists()
-    ```
+```js
+    jst.expect(2+2).is(4)
+    jst.expect(3+3).not(5)
+    jst.expect(["foo", "bar", "baz"]).has("foo")
+    jst.expect(window.foo).exists()
+```
 
 ### TEST SUITES
 
-    ```js
-        var __ = new JSTest();
+```js
+    var __ = new JSTest();
 
-        __.setup("Math Test Suite", function() {
+    __.setup("Math Test Suite", function() {
 
-            __.test("two plus two is 4", function() {
-                __.expect(2+2).is(4);
-            });
-
-            __.test("three plus three is not 5", function() {
-                __.expect(3 + 3).not(5);
-            });
+        __.test("two plus two is 4", function() {
+            __.expect(2+2).is(4);
         });
 
-        __.setup("Containment Test Suite", function() {
+        __.test("three plus three is not 5", function() {
+            __.expect(3 + 3).not(5);
+        });
+    });
 
-            __.test("string contains foo", function() {
-                __.expect("foo bar baz").has("foo");
-            });
+    __.setup("Containment Test Suite", function() {
 
-            __.test("array contains bar", function() {
-                __.expect(["foo", "bar", "baz"]).has("bar");
-            });
+        __.test("string contains foo", function() {
+            __.expect("foo bar baz").has("foo");
         });
 
-        __.setup("Existence Test Suite", function() {
-            __.test("object exists", function() {
-                __.expect(window).exists();
-            });
+        __.test("array contains bar", function() {
+            __.expect(["foo", "bar", "baz"]).has("bar");
         });
-    ```
+    });
+
+    __.setup("Existence Test Suite", function() {
+        __.test("object exists", function() {
+            __.expect(window).exists();
+        });
+    });
+```
