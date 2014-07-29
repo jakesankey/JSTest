@@ -1,50 +1,49 @@
 JSTest - JS Unit Test Framework
 ===============================
 
-JSTest is a class designed for easily running unit tests on your JavaScript code. The results of the tests will be displayed in the console with a summary of successes and failures. In the latest version, you now include a feature name as a constructor argument and the output will be categorized by this name. 
-No other frameworks needed for JSTest to function.
+JSTest has been completely rewritten in CoffeeScript. The framework has also been simplified with a new syntax and is now providing only the essential operations. 
 
 You can test it out <a href="http://htmlpreview.github.com/?https://github.com/jakesankey/JSTest/blob/master/example/index.html" target="_blank">here</a>.
 
-<b>TEST TYPES</b>
+### QUICK TESTS
 
-    "true" - (requires eval param) 
-    "false" - (requires eval param)
-    "equal" - (requires eval and goal params)
-    "strictEqual" - (requires eval and goal params)
-    "null" - (requires eval params)
-    "notEqual" - (requires eval and goal params)
-    "notStrictEqual" - (requires eval and goal params)
+    ```js
+        jst.expect(2+2).is(4)
+        jst.expect(3+3).not(5)
+        jst.expect(["foo", "bar", "baz"]).has("foo")
+        jst.expect(window.foo).exists()
+    ```
 
-<b>QUICK TESTS</b>
-```javascript
-var test = new JSTest("My fancy new feature.");
+### TEST SUITES
 
-test.isEqual(
-    {
-        eval:50+50 == 100,
-        message::"Yep, 50 + 50 is still 100"
-    }
-);
-```
-<b>ARRAY OF TESTS</b>
-```javascript
-var tests = new JSTest('My great new feature.');
-
-tests.add([
-    {
-        type:"equal"
-        goal:100,
-        eval:50+50,
-        message:"Yes, 50 + 50 = 100"
-    },
-    {
-        type:"notequal"
-        goal:100,
-        eval:50+40,
-        message:"No, 50 + 40 != 100"
-    }    
-]);
-
-tests.run();
-```
+    ```js
+        var __ = new JSTest();
+        
+        __.setup("Math Test Suite", function() {
+          
+            __.test("two plus two is 4", function() {
+                __.expect(2+2).is(4);
+            });
+          
+            __.test("three plus three is not 5", function() {
+                __.expect(3 + 3).not(5);
+            });
+        });
+        
+        __.setup("Containment Test Suite", function() {
+            
+            __.test("string contains foo", function() {
+                __.expect("foo bar baz").has("foo");
+            });
+            
+            __.test("array contains bar", function() {
+                __.expect(["foo", "bar", "baz"]).has("bar");
+            });
+        });
+        
+        __.setup("Existence Test Suite", function() {
+            __.test("object exists", function() {
+                __.expect(window).exists();
+            });
+        });
+    ```

@@ -2,53 +2,58 @@
 <html>
 <head>
 
-<link rel="stylesheet" href="codemirror.css">
-<script type='text/javascript' src='../JSTest.js'></script>
-<script type='text/javascript' src='codemirror.js'></script>
-<script type='text/javascript' src='javascript.js'></script>
+    <link rel="stylesheet" href="codemirror.css">
+    <script type="text/javascript" src="../../../coffeescript/compiler/coffee-script.js"></script>
+    <script type='text/coffeescript' src='../JSTest.coffee'></script>
+    <script type='text/javascript' src='codemirror.js'></script>
+    <script type='text/javascript' src='javascript.js'></script>
 
-<script>
-	var myCodeMirror;
-	function load() {
-		myCodeMirror = CodeMirror(document.body, {
-		  value: "function myScript() {\r\n\treturn 100;\r\n}\r\n\r\nvar testCases = new JSTest(\'Array of tests for myScript() with end summary.\');\r\n\r\ntestCases.add([\r\n\t{\r\n\t\ttype:\'equal\',\r\n\t\tgoal:100,\r\n\t\teval:myScript(),\r\n\t\tmessage:\'myScript() returns 100\'\r\n\t},\r\n\t{\r\n\t\ttype:\'false\',\r\n\t\teval:myScript() == 50,\r\n\t\tmessage:\'myScript() does not return 50\'\r\n\t},\r\n\t{\r\n\t\ttype:\'strictequal\',\r\n\t  \tgoal:100,\r\n\t\teval:myScript(),\r\n\t\tmessage:\'myScript() returns exactly 100\'\r\n\t},\r\n\t{\r\n\t\ttype:\'notstrictequal\',\r\n\t  \tgoal:\'100\',\r\n\t\teval:myScript(),\r\n\t\tmessage:\'myScript() does not return exactly 100\'\r\n\t}\r\n]);\r\n\r\ntestCases.run();\r\n\r\n\r\nvar test = new JSTest(\'Demo of tests executed directly.\');\r\n\r\ntest.isEqual({\r\n\tgoal:\'100\',\r\n\teval:myScript(),\r\n\tmessage:\'myScript() returns 100\'\r\n});\r\n\r\ntest.isTrue({\r\n\teval:myScript() == 100,\r\n\tmessage:\'myScript() returns 100\'\r\n});",
-		  mode:  "javascript",
-		  lineNumbers: true,
-		  autofocus: true
-		});
-		
-		(function (F, i, r, e, b, u, g, L, I, T, E) {
-                if (F.getElementById(b))return;
-                E = F[i + 'NS'] && F.documentElement.namespaceURI;
-                E = E ? F[i + 'NS'](E, 'script') : F[i]('script');
-                E[r]('id', b);
-                E[r]('src', I + g + T);
-                E[r](b, u);
-                (F[e]('head')[0] || F[e]('body')[0]).appendChild(E);
-                E = new Image;
-                E[r]('src', I + L);
-            })(document, 'createElement', 'setAttribute', 'getElementsByTagName', 'FirebugLite', '4', 'firebug-lite.js', 'releases/lite/latest/skin/xp/sprite.png', 'https://getfirebug.com/', '#startOpened');
-	}
-</script>
-	
-<style type="text/css">
-      .CodeMirror {border: 1px solid #cccccc;height:500px;}
-</style>
+    <script>
+        var myCodeMirror;
+        function load() {
+            myCodeMirror = CodeMirror(document.body, {
+                value: "var __ = new JSTest();\n\n__.setup(\"Math Test Suite\", function() {\n  \n    __.test(\"two plus two is 4\", function() {\n        __.expect(2+2).is(4);\n    });\n  \n    __.test(\"three plus three is not 5\", function() {\n        __.expect(3 + 3).not(5);\n    });\n});\n\n__.setup(\"Containment Test Suite\", function() {\n    \n    __.test(\"string contains foo\", function() {\n        __.expect(\"foo bar baz\").has(\"foo\");\n    });\n    \n    __.test(\"array contains bar\", function() {\n        __.expect([\"foo\", \"bar\", \"baz\"]).has(\"bar\");\n    });\n});\n\n__.setup(\"Existence Test Suite\", function() {\n    __.test(\"object exists\", function() {\n        __.expect(window).exists();\n    });\n});",
+                mode: "javascript",
+                lineNumbers: true,
+                autofocus: true
+            });
+//
+//            (function (F, i, r, e, b, u, g, L, I, T, E) {
+//                if (F.getElementById(b))return;
+//                E = F[i + 'NS'] && F.documentElement.namespaceURI;
+//                E = E ? F[i + 'NS'](E, 'script') : F[i]('script');
+//                E[r]('id', b);
+//                E[r]('src', I + g + T);
+//                E[r](b, u);
+//                (F[e]('head')[0] || F[e]('body')[0]).appendChild(E);
+//                E = new Image;
+//                E[r]('src', I + L);
+//            })(document, 'createElement', 'setAttribute', 'getElementsByTagName', 'FirebugLite', '4', 'firebug-lite.js', 'releases/lite/latest/skin/xp/sprite.png', 'https://getfirebug.com/', '#startOpened');
+        }
+    </script>
+
+    <style type="text/css">
+        .CodeMirror {
+            border: 1px solid #cccccc;
+            height: 500px;
+        }
+    </style>
 
 </head>
-<body onload="load()">	
-	<br/>
-	<div>Test results will show in the JavaScript console</div>
-	<br/>
-	<div>
-		<button id='execButton' onclick='runNewTest()'>Run Tests</button>
-	</div>
-	<br/>
+<body onload="load()">
+<br/>
+
+<div>Test results will show in the JavaScript console</div>
+<br/>
+
+<div>
+    <button id='execButton' onclick='runNewTest()'>Run Tests</button>
+</div>
+<br/>
 <script>
-	function runNewTest()
-	{
-		location.href = "javascript:" + myCodeMirror.getValue();
-	}
+    function runNewTest() {
+        location.href = "javascript:" + myCodeMirror.getValue();
+    }
 </script>
 </body>
 </html>
