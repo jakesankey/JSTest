@@ -39,4 +39,4 @@ class JSTest
 
 
 window.JSTest ?= JSTest
-window.jst ?= JSTest
+window.jst ?= new JSTest()
