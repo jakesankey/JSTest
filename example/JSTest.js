@@ -36,7 +36,7 @@
       failed = (function(_this) {
         return function() {
           _this.failures++;
-          return console.error("" + message + " -- Expected: " + _this.expected + ", Actual: " + conditional);
+          return console.error("" + message + " -- Actual: " + conditional + " (" + (typeof conditional) + "), Expected: " + _this.expected + " (" + (typeof _this.expected) + ")");
         };
       })(this);
       notify = (function(_this) {
