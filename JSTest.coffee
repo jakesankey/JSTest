@@ -19,7 +19,8 @@ class JSTest
 
         failed = =>
             @failures++
-            console.error "#{message} -- Expected: #{@expected}, Actual: #{conditional}"
+            console.error "#{message} -- Actual: #{conditional} (#{typeof conditional}), 
+                                            Expected: #{@expected} (#{typeof @expected})"
 
         notify = (result) =>
             if not result then do failed else do passed
