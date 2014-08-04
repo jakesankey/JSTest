@@ -14,7 +14,7 @@ class JSTest
     expect: (conditional) ->
         message = "#{@tests ? "1"}: #{@description ? "test"}"
 
-        passed = =>
+        passed = ->
             console.log "#{message} -- OK"
 
         failed = =>
@@ -22,7 +22,7 @@ class JSTest
             console.error "#{message} -- Actual: #{conditional},
                                             Expected: #{@expected}"
 
-        notify = (result) =>
+        notify = (result) ->
             if not result then do failed else do passed
 
         is: (@expected) =>
