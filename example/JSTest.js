@@ -7,13 +7,13 @@
 
     function JSTest() {}
 
-    JSTest.prototype.setup = function(feature, testSuite) {
+    JSTest.prototype.suite = function(feature, allTests) {
       var summary;
       this.tests = 0;
       this.failures = 0;
       this.ignored = 0;
       console.log(feature != null ? feature.toUpperCase() : void 0);
-      testSuite();
+      allTests();
       summary = "** " + (this.tests - this.failures - this.ignored) + " PASSED, " + this.ignored + " IGNORED, " + this.failures + " FAILED **\n\n";
       if (this.failures !== 0) {
         return console.error(summary);
@@ -28,12 +28,12 @@
 
     _after = function() {};
 
-    JSTest.prototype.before = function(suiteSetup) {
-      return _before = suiteSetup;
+    JSTest.prototype.before = function(setup) {
+      return _before = setup;
     };
 
-    JSTest.prototype.after = function(suiteTeardown) {
-      return _after = suiteTeardown;
+    JSTest.prototype.after = function(teardown) {
+      return _after = teardown;
     };
 
     JSTest.prototype.ignore = function(description, scenario) {

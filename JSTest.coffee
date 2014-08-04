@@ -1,11 +1,11 @@
 class JSTest
 
-    setup: (feature, testSuite) ->
+    suite: (feature, allTests) ->
         @tests = 0
         @failures = 0
         @ignored = 0
         console.log feature?.toUpperCase()
-        do testSuite
+        do allTests
         summary = "** #{@tests - @failures - @ignored} PASSED, #{@ignored} IGNORED, #{@failures} FAILED **\n\n"
         if @failures isnt 0
             console.error summary
@@ -18,11 +18,11 @@ class JSTest
 
     _after = ->
 
-    before: (suiteSetup) ->
-      _before = suiteSetup
+    before: (setup) ->
+      _before = setup
 
-    after: (suiteTeardown) ->
-      _after = suiteTeardown
+    after: (teardown) ->
+      _after = teardown
 
     ignore: (@description, scenario) ->
         @tests++

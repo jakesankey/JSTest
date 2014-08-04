@@ -23,7 +23,7 @@ Test results will be displayed in the browser's console.
 ```js
     var __ = new JSTest();
 
-    __.setup("Math Test Suite", function() {
+    __.suite("Math Test Suite", function() {
 
         var foo = 3;
 
@@ -49,7 +49,7 @@ Test results will be displayed in the browser's console.
         });
     });
 
-    __.setup("Containment Test Suite", function() {
+    __.suite("Containment Test Suite", function() {
 
         __.test("string contains foo", function() {
             __.expect("foo bar baz").has("foo");
@@ -60,13 +60,13 @@ Test results will be displayed in the browser's console.
         });
     });
 
-    __.setup("Existence Test Suite", function() {
+    __.suite("Existence Test Suite", function() {
         __.test("object exists", function() {
             __.expect(window).exists();
         });
     });
 
-    __.setup("Error Test Suite", function() {
+    __.suite("Error Test Suite", function() {
 
         function testFunc(val) {
             if (val > 5) {
