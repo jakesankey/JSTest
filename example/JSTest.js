@@ -3,51 +3,79 @@
   var JSTest;
 
   JSTest = (function() {
+    var _after, _before;
+
     function JSTest() {}
 
-    JSTest.prototype.setup = function(feature, testsuite) {
+    JSTest.prototype.setup = function(feature, testSuite) {
       var summary;
       this.tests = 0;
       this.failures = 0;
+      this.ignored = 0;
       console.log(feature != null ? feature.toUpperCase() : void 0);
-      testsuite();
-      summary = "** " + (this.tests - this.failures) + " PASSED, " + this.failures + " FAILED **\n\n";
-      if (this.failures === 0) {
-        return console.log(summary);
-      } else {
+      testSuite();
+      summary = "** " + (this.tests - this.failures - this.ignored) + " PASSED, " + this.ignored + " IGNORED, " + this.failures + " FAILED **\n\n";
+      if (this.failures !== 0) {
+        return console.error(summary);
+      } else if (this.ignored !== 0) {
         return console.warn(summary);
+      } else {
+        return console.log(summary);
       }
     };
 
-    JSTest.prototype.test = function(description, scenario) {
+    _before = function() {};
+
+    _after = function() {};
+
+    JSTest.prototype.before = function(suiteSetup) {
+      return _before = suiteSetup;
+    };
+
+    JSTest.prototype.after = function(suiteTeardown) {
+      return _after = suiteTeardown;
+    };
+
+    JSTest.prototype.ignore = function(description, scenario) {
       this.description = description;
       this.tests++;
-      return scenario();
+      this.ignored++;
+      return console.warn("" + this.tests + ": " + description + " -- Ignored");
+    };
+
+    JSTest.prototype.test = function(description, scenario) {
+      var error;
+      this.description = description;
+      this.tests++;
+      _before();
+      try {
+        scenario();
+      } catch (_error) {
+        error = _error;
+        console.error("" + this.tests + ": " + this.description + " -- " + error);
+      }
+      return _after();
     };
 
     JSTest.prototype.expect = function(conditional) {
       var failed, message, notify, passed, _ref, _ref1;
       message = "" + ((_ref = this.tests) != null ? _ref : "1") + ": " + ((_ref1 = this.description) != null ? _ref1 : "test");
-      passed = (function(_this) {
-        return function() {
-          return console.log("" + message + " -- OK");
-        };
-      })(this);
+      passed = function() {
+        return console.log("" + message + " -- OK");
+      };
       failed = (function(_this) {
         return function() {
           _this.failures++;
           return console.error("" + message + " -- Actual: " + conditional + ", Expected: " + _this.expected);
         };
       })(this);
-      notify = (function(_this) {
-        return function(result) {
-          if (!result) {
-            return failed();
-          } else {
-            return passed();
-          }
-        };
-      })(this);
+      notify = function(result) {
+        if (!result) {
+          return failed();
+        } else {
+          return passed();
+        }
+      };
       return {
         is: (function(_this) {
           return function(expected) {
@@ -71,6 +99,20 @@
           return function() {
             _this.expected = "exists";
             return notify(conditional != null);
+          };
+        })(this),
+        throws: (function(_this) {
+          return function(expected) {
+            var error;
+            _this.expected = expected;
+            try {
+              conditional();
+              conditional = "nothing thrown";
+              return notify(conditional === _this.expected);
+            } catch (_error) {
+              error = _error;
+              return notify((error != null ? error.message : void 0) === _this.expected);
+            }
           };
         })(this)
       };

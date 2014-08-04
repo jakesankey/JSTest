@@ -1,15 +1,42 @@
 class JSTest
-    setup: (feature, testsuite) ->
+
+    setup: (feature, testSuite) ->
         @tests = 0
         @failures = 0
+        @ignored = 0
         console.log feature?.toUpperCase()
-        do testsuite
-        summary = "** #{@tests - @failures} PASSED, #{@failures} FAILED **\n\n"
-        if @failures is 0 then console.log summary else console.warn summary
+        do testSuite
+        summary = "** #{@tests - @failures - @ignored} PASSED, #{@ignored} IGNORED, #{@failures} FAILED **\n\n"
+        if @failures isnt 0
+            console.error summary
+        else if @ignored isnt 0
+            console.warn summary
+        else
+            console.log summary
+
+    _before = ->
+
+    _after = ->
+
+    before: (suiteSetup) ->
+      _before = suiteSetup
+
+    after: (suiteTeardown) ->
+      _after = suiteTeardown
+
+    ignore: (@description, scenario) ->
+        @tests++
+        @ignored++
+        console.warn "#{@tests}: #{description} -- Ignored"
 
     test: (@description, scenario) ->
         @tests++
-        do scenario
+        do _before
+        try
+            do scenario
+        catch error
+            console.error "#{@tests}: #{@description} -- #{error}"
+        do _after
 
     expect: (conditional) ->
         message = "#{@tests ? "1"}: #{@description ? "test"}"
@@ -37,6 +64,14 @@ class JSTest
         exists: =>
             @expected = "exists"
             notify conditional?
+
+        throws: (@expected) =>
+            try
+                conditional()
+                conditional = "nothing thrown"
+                notify conditional is @expected
+            catch error
+                notify error?.message is @expected
 
 
 window.JSTest ?= JSTest

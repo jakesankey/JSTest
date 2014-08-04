@@ -25,12 +25,27 @@ Test results will be displayed in the browser's console.
 
     __.setup("Math Test Suite", function() {
 
-        __.test("two plus two is 4", function() {
-            __.expect(2+2).is(4);
+        var foo = 3;
+
+        __.before(function() {
+        	foo++;
         });
 
-        __.test("three plus three is not 5", function() {
-            __.expect(3 + 3).not(5);
+        __.after(function() {
+            foo--;
+        });
+
+        __.ignore("foo is not 4", function() {
+            /* invalid so we ignored it */
+            __.expect(foo).not(4);
+        });
+
+        __.test("foo is 4", function() {
+            __.expect(foo).is(4);
+        });
+
+        __.test("foo is still 4", function() {
+            __.expect(foo).not(5);
         });
     });
 
@@ -48,6 +63,21 @@ Test results will be displayed in the browser's console.
     __.setup("Existence Test Suite", function() {
         __.test("object exists", function() {
             __.expect(window).exists();
+        });
+    });
+
+    __.setup("Error Test Suite", function() {
+
+        function testFunc(val) {
+            if (val > 5) {
+            	throw Error("foo bar");
+            }
+        }
+
+        __.test("testFunc throws an error", function() {
+            /* Must pass in a reference to the function, not a call
+               If the function takes params, wrap the call in a function */
+            __.expect(function(){testFunc(6)}).throws("foo bar");
         });
     });
 ```
