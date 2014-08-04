@@ -16,6 +16,7 @@ Test results will be displayed in the browser's console.
     jst.expect(3+3).not(5)
     jst.expect(["foo", "bar", "baz"]).has("foo")
     jst.expect(window.foo).exists()
+    jst.expect(someFunc).throws("some exception message")
 ```
 
 ### TEST SUITES
