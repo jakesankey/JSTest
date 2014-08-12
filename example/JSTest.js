@@ -3,9 +3,21 @@
   var JSTest;
 
   JSTest = (function() {
-    var _after, _before;
+    var _after, _before, _originalAlert;
 
     function JSTest() {}
+
+    _originalAlert = window.alert;
+
+    JSTest.prototype.mockAlert = function() {
+      return window.alert = function(message) {
+        return message;
+      };
+    };
+
+    JSTest.prototype.unmockAlert = function() {
+      return window.alert = _originalAlert;
+    };
 
     JSTest.prototype.suite = function(feature, allTests) {
       var summary;

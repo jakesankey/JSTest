@@ -1,5 +1,14 @@
 class JSTest
 
+    _originalAlert = window.alert
+
+    mockAlert: ->
+        window.alert = (message) ->
+            return message
+
+    unmockAlert: ->
+        window.alert = _originalAlert
+
     suite: (feature, allTests) ->
         @tests = 0
         @failures = 0
@@ -46,8 +55,7 @@ class JSTest
 
         failed = =>
             @failures++
-            console.error "#{message} -- Actual: #{conditional},
-                                            Expected: #{@expected}"
+            console.error "#{message} -- Actual: #{conditional}, Expected: #{@expected}"
 
         notify = (result) ->
             if not result then do failed else do passed
