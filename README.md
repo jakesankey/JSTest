@@ -5,8 +5,6 @@ JSTest has been completely rewritten in CoffeeScript. The framework has also bee
 
 `JSTest` is exposed on the `window` namespace. Also, `jst` is exposed on `window` and is an actual instance of `JSTest` for quick console tests.
 
-You can test it out <a href="http://htmlpreview.github.com/?https://github.com/jakesankey/JSTest/blob/master/example/index.html" target="_blank">here</a>.
-
 Test results will be displayed in the browser's console.
 
 ### QUICK TESTS
