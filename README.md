@@ -1,4 +1,4 @@
-JSTest - JS Unit Test Framework
+JSTest - In-Browser JS Unit Test Framework
 ===============================
 
 JSTest has been completely rewritten in CoffeeScript. The framework has also been simplified with a new syntax and is now providing only the essential operations.
